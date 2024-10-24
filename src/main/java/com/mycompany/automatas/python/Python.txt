@@ -1,0 +1,74 @@
+# Ejemplo de código Python con múltiples grupos de palabras reservadas
+
+# Palabras reservadas relacionadas con la definición de funciones y clases
+def calcular_area_circulo(radio):
+    """Calcula el área de un círculo dado su radio."""
+    pi = 3.14159
+    return pi * radio ** 2
+
+class FormaGeometrica:
+    """Clase base para formas geométricas."""
+    
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def area(self):
+        """Método abstracto para calcular el área."""
+        raise NotImplementedError("Este método debe ser implementado por subclases.")
+
+class Circulo(FormaGeometrica):
+    def __init__(self, radio):
+        super().__init__("Círculo")
+        self.radio = radio
+
+    def area(self):
+        return calcular_area_circulo(self.radio)
+
+class Cuadrado(FormaGeometrica):
+    def __init__(self, lado):
+        super().__init__("Cuadrado")
+        self.lado = lado
+
+    def area(self):
+        return self.lado * self.lado
+
+# Palabras reservadas relacionadas con estructuras de control
+def main():
+    try:
+        # Crear instancias de las formas
+        circulo = Circulo(5)
+        cuadrado = Cuadrado(4)
+
+        # Imprimir áreas
+        print(f"Área del {circulo.nombre}: {circulo.area()}")
+        print(f"Área del {cuadrado.nombre}: {cuadrado.area()}")
+
+        # Palabras reservadas para el manejo de excepciones
+        if circulo.area() > 100:
+            raise ValueError("El área es demasiado grande.")
+    except ValueError as e:
+        print(f"Error: {e}")
+    except Exception as e:
+        print(f"Se produjo un error inesperado: {e}")
+
+# Palabras reservadas para la ejecución del script
+if __name__ == "__main__":
+    main()
+
+# Palabras reservadas para la iteración
+numeros = [1, 2, 3, 4, 5]
+for numero in numeros:
+    print(f"Número: {numero}")
+
+# Palabras reservadas para condiciones
+if 2 in numeros:
+    print("El número 2 está en la lista.")
+
+# Palabras reservadas para definición de constantes
+PI = 3.14159
+
+# Palabras reservadas para la inclusión de módulos
+import math
+
+# Usar una función del módulo math
+print(f"Raíz cuadrada de 16: {math.sqrt(16)}")
