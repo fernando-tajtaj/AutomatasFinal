@@ -6,7 +6,7 @@ def calcular_area_circulo(radio):
     return pi * radio ** 2
 
 class Geometrica:
-    """Clase base para geométricas."""
+    """Clase base para formas geométricas."""
     
     def __init__(self, nombre):
         self.nombre = nombre
@@ -49,7 +49,7 @@ def main():
         print(f"Error: {e}")
     except Exception as e:
         print(f"Se produjo un error inesperado: {e}")
-
+ 
 # Palabras reservadas para la ejecución del script
 if __name__ == "__main__":
     main()

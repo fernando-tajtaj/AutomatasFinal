@@ -29,11 +29,17 @@ package com.mycompany.automatas.python;
 %%
 
 /* Operadores lógicos */
-"\\s+(and|or|not)\\s*" { return new Yytoken(TokenType.KEYWORD, yytext(), yyline, yycolumn); }
+"and"|"or"|"not" { 
+    if (yytext().length() == 2 || yytext().length() == 3) // Verifica que no esté en medio de otra palabra
+        return new Yytoken(TokenType.KEYWORD, yytext(), yyline, yycolumn); 
+}
 
 /* Otros keywords */
-"as"|"assert"|"async"|"await"|"class"|"def"|"del"|"from"|"global"|"import"|
-"lambda"|"nonlocal"|"pass"|"raise"|"with"|"print"|"return" { return new Yytoken(TokenType.KEYWORD, yytext(), yyline, yycolumn); }
+"as"|"assert"|"async"|"await"|"class"|"def"|"del"|"from"|"global"|"import"| 
+"lambda"|"nonlocal"|"pass"|"raise"|"with"|"print"|"return" { 
+    if (yytext().length() <= 6) // Ajusta según la longitud de las palabras reservadas
+        return new Yytoken(TokenType.KEYWORD, yytext(), yyline, yycolumn); 
+}
 
 /* Números */
 [0-9]+ { return new Yytoken(TokenType.NUMBER, yytext(), yyline, yycolumn); }
@@ -45,16 +51,25 @@ package com.mycompany.automatas.python;
 . { return new Yytoken(TokenType.SYMBOL, yytext(), yyline, yycolumn); }
 
 /* Tipos de datos */
-"False"|"None"|"True" { return new Yytoken(TokenType.DATATYPE, yytext(), yyline, yycolumn); }
+"False"|"None"|"True" { 
+    if (yytext().length() <= 5) // Ajusta según la longitud de las palabras reservadas
+        return new Yytoken(TokenType.DATATYPE, yytext(), yyline, yycolumn); 
+}
 
 /* Condicionales */
-"if"|"else"|"elif"|"try"|"except"|"finally" { return new Yytoken(TokenType.CONDITIONAL, yytext(), yyline, yycolumn); }
+"if"|"else"|"elif"|"try"|"except"|"finally" { 
+    if (yytext().length() <= 5) // Ajusta según la longitud de las palabras reservadas
+        return new Yytoken(TokenType.CONDITIONAL, yytext(), yyline, yycolumn); 
+}
 
 /* Bucles y continuaciones */
-"for"|"foreach"|"break"|"continue"|"return"|"yield" { return new Yytoken(TokenType.LOOP, yytext(), yyline, yycolumn); }
+"for"|"foreach"|"break"|"continue"|"return"|"yield" { 
+    if (yytext().length() <= 6) // Ajusta según la longitud de las palabras reservadas
+        return new Yytoken(TokenType.LOOP, yytext(), yyline, yycolumn); 
+}
 
 /* Cadenas de texto entre comillas dobles */
-\"(\\\"\"|[^\"])*\" { return new Yytoken(TokenType.STRING, yytext(), yyline, yycolumn); }
+\"(\\\"|[^\"])*\" { return new Yytoken(TokenType.STRING, yytext(), yyline, yycolumn); }
 
 /* Expresiones entre llaves */
 \{([^{}]|\\.)*\} { return new Yytoken(TokenType.EXPRESSION, yytext(), yyline, yycolumn); }
